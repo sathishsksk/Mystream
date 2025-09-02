@@ -1,0 +1,32 @@
+name: file-to-link-bot
+services:
+  - name: app
+    scalings:
+      min: 1
+      max: 2
+    ports:
+      - port: 8000
+        protocol: http
+    env:
+      - name: API_ID
+        secret: api-id
+      - name: API_HASH
+        secret: api-hash
+      - name: BOT_TOKEN
+        secret: bot-token
+      - name: DATABASE_URL
+        secret: database-url
+      - name: DOWNLOAD_URL
+        value: "https://your-koyeb-app-url.koyeb.app"
+      - name: MAX_FILE_SIZE
+        value: "4294967296"
+      - name: STREAMING_ENABLED
+        value: "true"
+      - name: PORT
+        value: "8000"
+    routes:
+      - path: "/"
+    docker:
+      image: koyeb/python:3.9
+    regions:
+      - fra
