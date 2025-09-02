@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  file-to-link-bot:
+    build: .
+    container_name: file-to-link-bot
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - API_ID=${API_ID}
+      - API_HASH=${API_HASH}
+      - BOT_TOKEN=${BOT_TOKEN}
+      - BOT_USERNAME=${BOT_USERNAME}
+      - BOT_OWNER=${BOT_OWNER}
+      - DATABASE_URL=${DATABASE_URL}
+      - DOWNLOAD_URL=${DOWNLOAD_URL}
+      - MAX_FILE_SIZE=${MAX_FILE_SIZE}
+      - PORT=8000
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
